@@ -1,0 +1,9 @@
+node_modules/
+.pnpm-store/
+.angular/
+dist/
+out-tsc/
+.git/
+.env
+.env.*
+*.log

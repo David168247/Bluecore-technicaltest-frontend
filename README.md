@@ -30,3 +30,7 @@ pnpm test
 - Diseño adaptable a móvil y escritorio.
 
 La URL de la API está en `src/environments/environment.ts`. El proxy de desarrollo está en `proxy.conf.json`.
+
+## Docker
+
+Desde la carpeta principal del proyecto, ejecutar `docker compose up --build -d`. Abrir http://localhost:8080. La configuración y los comandos están en el README principal.
