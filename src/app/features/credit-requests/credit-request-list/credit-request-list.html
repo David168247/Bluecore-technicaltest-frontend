@@ -58,7 +58,7 @@
     </p>
   </div>
   } @else {
-  <div class="grid gap-4 bg-slate-50 p-4 sm:p-6 lg:hidden">
+  <div class="grid gap-4 bg-slate-50 sm:grid-cols-2 p-4 sm:p-6 lg:hidden">
     @for (row of rows(); track row.id) {
     <app-credit-request-card [credit]="row" (decide)="select(row, $event)" /> }
   </div>
