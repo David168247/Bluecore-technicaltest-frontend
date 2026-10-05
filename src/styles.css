@@ -96,3 +96,16 @@
     @apply text-red-300;
   }
 }
+
+@layer components {
+  .auth-screen {
+    color-scheme: dark;
+  }
+  .auth-screen .input:-webkit-autofill,
+  .auth-screen .input:-webkit-autofill:hover,
+  .auth-screen .input:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff;
+    -webkit-box-shadow: 0 0 0 1000px #374151 inset;
+    caret-color: #fff;
+  }
+}
