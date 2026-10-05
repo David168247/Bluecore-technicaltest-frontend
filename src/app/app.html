@@ -1,1 +1,19 @@
-<main><router-outlet /></main>
+<div class="flex min-h-dvh flex-col" [class.bg-gray-900]="!auth.authenticated()">
+  <a href="#main-content" class="sr-only z-50 rounded-lg bg-blue-700 px-4 py-3 text-white focus:not-sr-only focus:fixed focus:left-4 focus:top-4">Ir al contenido</a>
+  @if (auth.authenticated()) {
+  <header class="border-b border-slate-200 bg-white">
+    <nav aria-label="Navegación principal" class="mx-auto flex max-w-7xl flex-wrap items-center gap-4 px-4 py-4 text-sm sm:gap-6 sm:px-6">
+      <a routerLink="/solicitudes" routerLinkActive="font-semibold" [routerLinkActiveOptions]="{ exact: true }" ariaCurrentWhenActive="page">Solicitudes</a>
+      <a routerLink="/solicitudes/nueva" routerLinkActive="font-semibold" ariaCurrentWhenActive="page">Nueva solicitud</a>
+      <span class="ml-auto hidden max-w-40 truncate text-slate-500 sm:inline">{{ auth.user()?.username }}</span>
+      <button class="btn btn-secondary ml-auto sm:ml-0" type="button" (click)="logout()">Salir</button>
+    </nav>
+  </header>
+  }
+  <main id="main-content" tabindex="-1" class="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 py-8 outline-none sm:px-6 lg:py-12">
+    <router-outlet />
+  </main>
+  @if (auth.authenticated()) {
+  <footer class="px-6 py-6 text-center text-xs text-slate-500">Gestión de solicitudes de crédito</footer>
+  }
+</div>
