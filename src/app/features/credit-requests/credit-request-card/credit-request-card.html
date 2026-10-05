@@ -1,0 +1,54 @@
+<article
+  class="panel h-full space-y-5 p-5"
+  [attr.aria-label]="'Solicitud de ' + credit().applicantId"
+>
+  <div class="flex flex-wrap items-start justify-between gap-3">
+    <div class="min-w-0">
+      <h2 class="wrap-anywhere text-base">{{ credit().applicantId }}</h2>
+      <p class="mt-1 text-xs text-slate-500">Solicitud #{{ credit().id }}</p>
+    </div>
+    <app-status-badge [status]="credit().status" />
+  </div>
+  <dl class="grid grid-cols-2 gap-4 text-sm">
+    <div>
+      <dt class="text-xs text-slate-500">Monto</dt>
+      <dd class="mt-1 font-semibold">{{ credit().amount | currency:'USD' }}</dd>
+    </div>
+    <div>
+      <dt class="text-xs text-slate-500">Plazo</dt>
+      <dd class="mt-1 font-semibold">{{ credit().termMonths }} meses</dd>
+    </div>
+    <div class="col-span-2">
+      <dt class="text-xs text-slate-500">Creación</dt>
+      <dd class="mt-1">{{ credit().createdAt | date:'dd/MM/yyyy HH:mm' }}</dd>
+    </div>
+    <div class="col-span-2">
+      <dt class="text-xs text-slate-500">Comentario</dt>
+      <dd class="mt-1 wrap-anywhere whitespace-pre-wrap">
+        {{ credit().comment || 'Sin comentario' }}
+      </dd>
+    </div>
+  </dl>
+  @if (credit().status === states.Pending) {
+  <div class="grid grid-cols-2 gap-3 border-t border-slate-100 pt-4">
+    <button
+      class="btn btn-secondary text-emerald-700"
+      type="button"
+      (click)="decide.emit('Approved')"
+    >
+      Aprobar
+    </button>
+    <button
+      class="btn btn-secondary text-red-700"
+      type="button"
+      (click)="decide.emit('Rejected')"
+    >
+      Rechazar
+    </button>
+  </div>
+  } @else {
+  <p class="border-t border-slate-100 pt-4 text-xs text-slate-500">
+    Decisión registrada
+  </p>
+  }
+</article>
