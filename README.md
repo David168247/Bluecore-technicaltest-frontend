@@ -1,17 +1,17 @@
 # Créditos — Frontend
 
-Aplicación Angular 21 con Tailwind CSS para gestionar solicitudes de crédito. Permite crear una cuenta, iniciar sesión, registrar solicitudes y consultar su estado. Se conecta a una API ASP.NET mediante autenticación JWT.
+Aplicación Angular con Tailwind CSS para gestionar solicitudes de crédito. Permite crear una cuenta, iniciar sesión, registrar solicitudes y consultar su estado. Se conecta a una API ASP.NET mediante autenticación JWT.
 
 ## Requisitos
 
-- Node.js 22.12 o una versión posterior de Node.js 22; también puedes usar Node.js 24.
-- pnpm 11.19.0, que es la versión utilizada en el proyecto.
+- Node.js.
+- pnpm.
 - El backend configurado y ejecutándose en http://localhost:5171.
 
 Si todavía no tienes pnpm, instálalo con:
 
 ```sh
-npm install --global pnpm@11.19.0
+npm install --global pnpm
 ```
 
 No necesitas instalar Angular CLI globalmente; está incluido en las dependencias.
@@ -24,7 +24,7 @@ cd Bluecore-technicaltest-frontend
 pnpm install --frozen-lockfile
 ```
 
-Si ya tienes el código descargado, ejecuta la instalación desde la carpeta donde está `package.json`. La opción `--frozen-lockfile` instala las versiones registradas en `pnpm-lock.yaml`.
+Si ya tienes el código descargado, ejecuta la instalación desde la carpeta donde está `package.json`. La opción `--frozen-lockfile` utiliza las dependencias registradas en `pnpm-lock.yaml`.
 
 ## Iniciar el proyecto
 
