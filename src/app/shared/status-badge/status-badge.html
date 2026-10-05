@@ -1,0 +1,6 @@
+<span
+  class="badge"
+  [class.badge-approved]="status() === states.Approved"
+  [class.badge-rejected]="status() === states.Rejected"
+  >{{ labels[status()] || 'Desconocido' }}</span
+>
