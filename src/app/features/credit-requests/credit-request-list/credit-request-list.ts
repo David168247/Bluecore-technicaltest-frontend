@@ -26,6 +26,7 @@ import {
 } from "../../../models/credit-request";
 import { StatusBadge } from "../../../shared/status-badge/status-badge";
 import { CreditDecision } from "../credit-decision/credit-decision";
+import { CreditRequestCard } from "../credit-request-card/credit-request-card";
 
 @Component({
   imports: [
@@ -35,6 +36,7 @@ import { CreditDecision } from "../credit-decision/credit-decision";
     DatePipe,
     StatusBadge,
     CreditDecision,
+    CreditRequestCard,
   ],
   templateUrl: "./credit-request-list.html",
 })
