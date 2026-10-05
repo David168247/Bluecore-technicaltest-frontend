@@ -3,8 +3,7 @@
 >
 <div class="max-w-2xl space-y-3">
   <p class="eyebrow">Nueva solicitud</p>
-  <h1>Registra los datos del crédito.</h1>
-  <p class="text-slate-500">La solicitud se creará con estado pendiente.</p>
+  <h1>Registrar crédito.</h1>
 </div>
 <section class="panel mt-8 max-w-2xl p-6 sm:p-8">
   @if (error()) {
@@ -16,8 +15,7 @@
     class="grid gap-6"
     [attr.aria-busy]="busy()"
   >
-    <label class="field"
-      >Cédula del solicitante
+    <label class="field" >Cédula del solicitante
       <input
         class="input"
         formControlName="applicantId"
