@@ -1,0 +1,60 @@
+<app-auth-layout
+  title="Inicia sesión en tu cuenta"
+  subtitle="Ingresa con tu usuario o correo electrónico."
+>
+  @if (expired) {
+  <p class="notice" role="status">
+    Tu sesión expiró. Inicia sesión nuevamente.
+  </p>
+  } @if (error()) {
+  <p class="notice notice-error" role="alert">{{ error() }}</p>
+  }
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="grid gap-7"
+    [attr.aria-busy]="busy()"
+  >
+    <label class="field"
+      >Usuario o correo
+      <input
+        class="input"
+        formControlName="usernameOrEmail" placeholder="usuario o correo@ejemplo.com"
+        autocomplete="username"
+        maxlength="250"
+        [attr.aria-invalid]="form.controls.usernameOrEmail.touched && form.controls.usernameOrEmail.invalid"
+        aria-describedby="login-identifier-error"
+      />
+      @if (form.controls.usernameOrEmail.touched &&
+      form.controls.usernameOrEmail.invalid) {
+      <span id="login-identifier-error" class="field-error"
+        >Ingresa tu usuario o correo (máximo 250 caracteres).</span
+      >
+      }
+    </label>
+    <label class="field"
+      >Contraseña
+      <input
+        class="input"
+        type="password" placeholder="••••••••"
+        formControlName="password"
+        autocomplete="current-password"
+        maxlength="120"
+        [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
+        aria-describedby="login-password-error"
+      />
+      @if (form.controls.password.touched && form.controls.password.invalid) {
+      <span id="login-password-error" class="field-error"
+        >Ingresa tu contraseña (máximo 120 caracteres).</span
+      >
+      }
+    </label>
+    <button class="btn mt-1 w-full" type="submit" [disabled]="busy()">
+      {{ busy() ? 'Iniciando sesión…' : 'Iniciar sesión' }}
+    </button>
+  </form>
+  <p class="mt-7 text-sm text-gray-400">
+    ¿Todavía no tienes una cuenta?
+    <a routerLink="/registro" class="font-semibold">Crea una cuenta</a>
+  </p>
+</app-auth-layout>
