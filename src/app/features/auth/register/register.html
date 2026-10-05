@@ -26,13 +26,7 @@
         aria-describedby="register-user-hint"
         [attr.aria-invalid]="form.controls.username.touched && form.controls.username.invalid"
       />
-      <span
-        id="register-user-hint"
-        class="hint"
-        [class.field-error]="form.controls.username.touched && form.controls.username.invalid"
-        >3–50 caracteres: letras ASCII, números, punto, guion o guion
-        bajo.</span
-      >
+@if (form.controls.username.touched && form.controls.username.invalid) { <span id="register-user-hint" class="field-error">Ingresa un usuario válido.</span> }
     </label>
     <label class="field"
       >Correo electrónico
@@ -47,7 +41,7 @@
       />
       @if (form.controls.email.touched && form.controls.email.invalid) {
       <span id="register-email-error" class="field-error"
-        >Ingresa un correo válido de hasta 250 caracteres.</span
+        >Ingresa un correo válido.</span
       >
       }
     </label>
@@ -62,12 +56,7 @@
         aria-describedby="register-password-hint"
         [attr.aria-invalid]="form.controls.password.touched && form.controls.password.invalid"
       />
-      <span
-        id="register-password-hint"
-        class="hint"
-        [class.field-error]="form.controls.password.touched && form.controls.password.invalid"
-        >Entre 12 y 120 caracteres. Puedes usar una frase larga.</span
-      >
+@if (form.controls.password.touched && form.controls.password.invalid) { <span id="register-password-hint" class="field-error">Usa una contraseña de al menos 12 caracteres.</span> }
     </label>
     <button class="btn w-full" type="submit" [disabled]="busy()">
       {{ busy() ? 'Creando cuenta…' : 'Crear cuenta' }}

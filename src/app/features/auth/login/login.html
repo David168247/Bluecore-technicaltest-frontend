@@ -1,6 +1,6 @@
 <app-auth-layout
   title="Inicia sesión en tu cuenta"
-  subtitle="Ingresa con tu usuario o correo electrónico."
+  subtitle="Ingresa con tu usuario y contraseña."
 >
   @if (expired) {
   <p class="notice" role="status">
@@ -16,10 +16,10 @@
     [attr.aria-busy]="busy()"
   >
     <label class="field"
-      >Usuario o correo
+      >Usuario
       <input
         class="input"
-        formControlName="usernameOrEmail" placeholder="usuario o correo@ejemplo.com"
+        formControlName="usernameOrEmail" placeholder="Tu usuario"
         autocomplete="username"
         maxlength="250"
         [attr.aria-invalid]="form.controls.usernameOrEmail.touched && form.controls.usernameOrEmail.invalid"
@@ -28,7 +28,7 @@
       @if (form.controls.usernameOrEmail.touched &&
       form.controls.usernameOrEmail.invalid) {
       <span id="login-identifier-error" class="field-error"
-        >Ingresa tu usuario o correo (máximo 250 caracteres).</span
+        >Ingresa tu usuario.</span
       >
       }
     </label>
@@ -45,7 +45,7 @@
       />
       @if (form.controls.password.touched && form.controls.password.invalid) {
       <span id="login-password-error" class="field-error"
-        >Ingresa tu contraseña (máximo 120 caracteres).</span
+        >Ingresa tu contraseña.</span
       >
       }
     </label>
