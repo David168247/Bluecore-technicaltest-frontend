@@ -1,0 +1,85 @@
+<a routerLink="/solicitudes" class="mb-6 inline-block text-sm"
+  >← Volver a solicitudes</a
+>
+<div class="max-w-2xl space-y-3">
+  <p class="eyebrow">Nueva solicitud</p>
+  <h1>Registra los datos del crédito.</h1>
+  <p class="text-slate-500">La solicitud se creará con estado pendiente.</p>
+</div>
+<section class="panel mt-8 max-w-2xl p-6 sm:p-8">
+  @if (error()) {
+  <p class="notice notice-error mb-6" role="alert">{{ error() }}</p>
+  }
+  <form
+    [formGroup]="form"
+    (ngSubmit)="submit()"
+    class="grid gap-6"
+    [attr.aria-busy]="busy()"
+  >
+    <label class="field"
+      >Cédula del solicitante
+      <input
+        class="input"
+        formControlName="applicantId"
+        maxlength="50"
+        placeholder="Ej. 8-123-456"
+        aria-describedby="applicant-hint"
+        [attr.aria-invalid]="form.controls.applicantId.touched && form.controls.applicantId.invalid"
+      />
+      <span
+        id="applicant-hint"
+        class="hint"
+        [class.field-error]="form.controls.applicantId.touched && form.controls.applicantId.invalid"
+        >La cédula es obligatoria. Máximo 50 caracteres.</span
+      >
+    </label>
+    <div class="grid gap-6 sm:grid-cols-2">
+      <label class="field"
+        >Monto (USD)
+        <input
+          class="input"
+          type="number"
+          formControlName="amount"
+          min="500"
+          max="50000"
+          step="any"
+          aria-describedby="amount-hint"
+          [attr.aria-invalid]="form.controls.amount.touched && form.controls.amount.invalid"
+        />
+        <span
+          id="amount-hint"
+          class="hint"
+          [class.field-error]="form.controls.amount.touched && form.controls.amount.invalid"
+          >Entre $500 y $50,000.</span
+        >
+      </label>
+      <label class="field"
+        >Plazo (meses)
+        <input
+          class="input"
+          type="number"
+          formControlName="termMonths"
+          min="6"
+          max="60"
+          step="1"
+          aria-describedby="term-hint"
+          [attr.aria-invalid]="form.controls.termMonths.touched && form.controls.termMonths.invalid"
+        />
+        <span
+          id="term-hint"
+          class="hint"
+          [class.field-error]="form.controls.termMonths.touched && form.controls.termMonths.invalid"
+          >Entre 6 y 60 meses completos.</span
+        >
+      </label>
+    </div>
+    <div
+      class="flex flex-col-reverse gap-3 border-t border-slate-100 pt-6 sm:flex-row sm:justify-end"
+    >
+      <a class="btn btn-secondary" routerLink="/solicitudes">Cancelar</a>
+      <button class="btn" type="submit" [disabled]="busy()">
+        {{ busy() ? 'Guardando…' : 'Crear solicitud' }}
+      </button>
+    </div>
+  </form>
+</section>
