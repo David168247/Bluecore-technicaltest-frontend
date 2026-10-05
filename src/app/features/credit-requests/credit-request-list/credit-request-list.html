@@ -1,0 +1,134 @@
+<div
+  class="mb-8 flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between"
+>
+  <div class="space-y-3">
+    <p class="eyebrow">Gestión de créditos</p>
+    <h1>Solicitudes</h1>
+    <p class="text-slate-500">
+      Consulta las solicitudes y registra tus decisiones.
+    </p>
+  </div>
+  <a class="btn" routerLink="/solicitudes/nueva">+ Nueva solicitud</a>
+</div>
+@if (message()) {
+<p class="notice notice-success mb-5" role="status">{{ message() }}</p>
+} @if (error()) {
+<p class="notice notice-error mb-5" role="alert">{{ error() }}</p>
+}
+<section
+  class="panel"
+  [attr.aria-busy]="loading()"
+  aria-label="Listado de solicitudes"
+>
+  <div
+    class="flex flex-wrap items-end justify-between gap-4 border-b border-slate-200 p-5 sm:px-6"
+  >
+    <label class="field w-full sm:w-60"
+      >Estado
+      <select
+        class="input"
+        [ngModel]="filter()"
+        (ngModelChange)="changeFilter($event)"
+      >
+        <option value="">Todos los estados</option>
+        @for (status of statuses; track status.value) {
+        <option [value]="status.value">{{ status.label }}</option>
+        }
+      </select>
+    </label>
+    <button
+      class="btn btn-secondary"
+      type="button"
+      (click)="reload()"
+      [disabled]="loading()"
+    >
+      Actualizar
+    </button>
+  </div>
+  @if (loading()) {
+  <p class="px-6 py-16 text-center text-slate-500" role="status">
+    Cargando solicitudes…
+  </p>
+  } @else if (!rows().length) {
+  <div class="space-y-3 px-6 py-16 text-center">
+    <h2>{{ error() ? 'No se pudo cargar el listado' : 'Sin solicitudes' }}</h2>
+    <p class="text-slate-500">
+      {{ error() ? 'Verifica la conexión y vuelve a intentar.' : 'No hay
+      solicitudes para el estado seleccionado.' }}
+    </p>
+  </div>
+  } @else {
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[850px] border-collapse text-left text-sm">
+      <caption class="sr-only">
+        Solicitudes de crédito y su estado actual
+      </caption>
+      <thead class="bg-slate-50 text-xs uppercase tracking-wide text-slate-500">
+        <tr>
+          <th scope="col" class="px-5 py-4">Solicitante</th>
+          <th scope="col" class="px-5 py-4">Monto / plazo</th>
+          <th scope="col" class="px-5 py-4">Estado</th>
+          <th scope="col" class="px-5 py-4">Comentario</th>
+          <th scope="col" class="px-5 py-4">Creación</th>
+          <th scope="col" class="px-5 py-4">Revisión</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (row of rows(); track row.id) {
+        <tr class="border-t border-slate-100">
+          <td class="px-5 py-5">
+            <strong class="block">{{ row.applicantId }}</strong
+            ><span class="text-xs text-slate-500">#{{ row.id }}</span>
+          </td>
+          <td class="px-5 py-5">
+            {{ row.amount | currency:'USD' }}<span
+              class="block text-xs text-slate-500"
+              >{{ row.termMonths }} meses</span
+            >
+          </td>
+          <td class="px-5 py-5"><app-status-badge [status]="row.status" /></td>
+          <td class="max-w-64 wrap-anywhere whitespace-pre-wrap px-5 py-5">
+            {{ row.comment || '—' }}
+          </td>
+          <td class="px-5 py-5">
+            {{ row.createdAt | date:'dd/MM/yyyy' }}<span
+              class="block text-xs text-slate-500"
+              >{{ row.createdAt | date:'HH:mm' }}</span
+            >
+          </td>
+          <td class="px-5 py-5">
+            @if (row.status === states.Pending) {
+            <div class="flex gap-2">
+              <button
+                class="btn btn-secondary px-3 py-2 text-xs text-emerald-700"
+                (click)="select(row, 'Approved')"
+              >
+                Aprobar</button
+              ><button
+                class="btn btn-secondary px-3 py-2 text-xs text-red-700"
+                (click)="select(row, 'Rejected')"
+              >
+                Rechazar
+              </button>
+            </div>
+            } @else { <span class="text-slate-500">Resuelta</span> }
+          </td>
+        </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  <p class="px-6 py-4 text-xs text-slate-500">
+    {{ rows().length }} {{ rows().length === 1 ? 'solicitud' : 'solicitudes' }}
+    en este listado
+  </p>
+  }
+</section>
+@if (selected(); as selection) {
+<app-credit-decision
+  [credit]="selection.row"
+  [decision]="selection.decision"
+  (saved)="decisionSaved()"
+  (closed)="selected.set(null)"
+/>
+}
